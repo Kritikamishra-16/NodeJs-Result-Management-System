@@ -1,0 +1,47 @@
+{{>header}}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mx-auto mt-4">
+            <div class="card shadow">
+                <div class="card-header bg-success">
+                    <h3 class="text-light">Edit Student</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form action="/api/v1/edit/{{student.id}}" method="POST" id="add-form" onsubmit="return validateInputs()">
+                    <div class="mb-3">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" name="name" value="{{student.name}}" class="form-control form-control lg" placeholder="Enter Student Name" required>
+                        <small style="color: red;"></small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rollnumber">Roll Number</label>
+                        <input id="rollnumber" type="text" name="rollnumber" value="{{student.rollnumber}}" class="form-control form-control lg" placeholder="Enter Student rollnumber" required>
+                        <small style="color: red;"></small>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="dob">dob</label>
+                        <input id="dob" type="date" name="dob" value="{{student.dob}}" class="form-control form-control lg" placeholder="Enter date of birrth" required>
+                        <small style="color: red;"></small>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="score">Score</label>
+                        <input id="score" type="number" name="score" value="{{student.score}}" class="form-control form-control lg" placeholder="Enter Score" min="1" max="100" required>
+                        <small style="color: red;"></small>
+
+                    </div>
+                    <div class="mb-3 d-grid">
+                        <input type="submit" name="submit" value="Edit Student" class="btn btn-success btn-lg">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../../public/js/formvalidation.js"></script>
+{{>footer}}

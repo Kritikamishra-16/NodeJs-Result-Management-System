@@ -1,0 +1,32 @@
+{{>header}}
+<div class="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      {{#if message}}
+      <div class="alert alert-dismissible fade show alert-{{message.type}}" role="alert">
+          <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close">
+          </button>
+              <strong>
+                  {{message.message}}
+              </strong>
+      </div>
+    {{/if}}
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+<div class="login-container">
+    <h2>Find Result</h2>
+    <form action="/api/v1/searchResult" method="POST">
+      <div class="mb-3">
+        <input class="input-field" type="text" placeholder="Roll Number" name="rollnumber" required>
+      </div>
+      <div class="mb-3">
+        <input class="input-field" type="date" placeholder="Date of Birth" name="dob" required>
+      </div>
+      <input type="submit" class="login-button btn btn-dark" value="Search">
+    </form>
+  </div>
+
+{{>footer}}

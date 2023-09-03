@@ -1,0 +1,97 @@
+{{>header}}
+<div class="">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      {{#if message}}
+      <div class="alert alert-dismissible fade show alert-{{message.type}}" role="alert">
+          <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close">
+          </button>
+              <strong>
+                  {{message.message}}
+              </strong>
+      </div>
+    {{/if}}
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+
+<div class="text-center center-div" id="login">
+  <div class="container border py-4" >
+    <div class="title">
+      <h2 class="m-0" style="font-weight: bold; font-family:'Times New Roman', Times, serif;">
+        Faculty login
+      </h2>
+      <span>Login for the existing faculty</span>
+    </div>
+    <form id="form" action="/api/v1/teacherlogin" method="POST" onsubmit="return validateInputs()">
+      <div class="mb-3">
+        <label class="col-form-label">Email</label>
+        <input id="email" type="email" class="form-control" placeholder="Email" name="email" value="" required>
+        <small  style="color: red;"></small>
+      </div>
+      <div class="mb-3">
+        <label class="col-form-label">Password</label>
+        <input id="password" type="password" class="form-control" placeholder="Password" name="password" value="" required>
+        <small  style="color: red;"></small>
+      </div>
+      <input type="submit" class="btn btn-success rounded-pill" value="login"/>
+    </form>
+  </div>
+</div> 
+
+<script>
+
+  const setError = (element, msg) => {
+    const mb3 = element.parentElement;
+    const errorDisplay = element.nextElementSibling;
+    errorDisplay.textContent = msg;
+    errorDisplay.classList.add('error'); // Apply the 'error' class to the <small> element
+    mb3.classList.remove('success');
+    mb3.classList.add('error');
+  }
+
+  const setSuccess = (element) => {
+        const mb3 = element.parentElement;
+        const errorDisplay = element.nextElementSibling; // Get the <small> element next to the input
+        errorDisplay.textContent = '';
+        errorDisplay.classList.remove('error'); // Remove the 'error' class from the <small> element
+        mb3.classList.remove('error');
+        mb3.classList.add('success');
+  }
+
+  const isValidEmail = email => {
+    const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  const validateInputs = () => {
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const emailValue = email.value.trim();
+    const passwordValue = password.value.trim();
+
+    if (emailValue === '') {
+      setError(email, 'Email is a required field');
+    } else if (!isValidEmail(emailValue)) {
+      setError(email, 'Provide a valid email');
+    } else {
+      setSuccess(email);
+    }
+
+    if (passwordValue === '') {
+      setError(password, 'Password is a required field');
+    } else if (passwordValue.length < 5) {
+      setError(password, 'Password must be at least 5 characters.');
+    } else {
+      setSuccess(password);
+    }
+
+    // Return true or false based on validation
+    return !document.querySelectorAll('.error').length;
+  }
+</script>
+
+
+{{>footer}}
